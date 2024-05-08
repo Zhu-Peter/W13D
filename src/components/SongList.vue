@@ -1,5 +1,6 @@
 <template>
     <div id="list_container">
+        <h1>Song List</h1>
         <div class="song_wrapper">
             <div v-for="song in songs" v-bind:key="song.song_id" @click="chooseSong(song.song_id)">
                 <div class="song_container" ref="song" @mouseover="songBackground(song.song_id, true)"
@@ -81,7 +82,7 @@ export default {
     },
     methods: {
         chooseSong: function (song) {
-            this.$emit(`chooseSong`, this.songs[song - 1])
+            this.$root.$emit(`chooseSong`, this.songs[song - 1])
         },
         songBackground: function (song, highlight) {
             if (highlight) {
@@ -91,6 +92,7 @@ export default {
             }
         }
     },
+
 }
 </script>
 <style scoped>
@@ -111,6 +113,10 @@ export default {
 .song_wrapper{
     width: 1000px;
     margin-inline: auto;
+}
+
+#list_container > h1{
+    text-align: center;
 }
 
 .song_container {
