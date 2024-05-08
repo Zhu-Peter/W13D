@@ -1,5 +1,6 @@
-<template lang="">
-    <div>
+<template>
+    <div id="nowplaying">
+        <h1>Now Playing</h1>
         <div id="controls_bar">
             <div id="btn_back" class="button">
                 <svg width="24px" height="24px" viewBox="0 0 24 24"
