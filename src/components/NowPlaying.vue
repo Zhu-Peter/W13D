@@ -1,8 +1,14 @@
 <template>
     <div id="nowplaying">
         <h1>Now Playing</h1>
+        <h1 style="color: red;margin-bottom: 300px;" v-if="playingSong.song_id == 0">Please Pick a song</h1>
+        <div v-if="!(playingSong.song_id == 0)">
+            <img :src="require(`@/assets/${playingSong.image_url}`)" alt="(image)" style="width: 300px; height: 300px;object-fit: cover;"/>
+            <h2>{{ playingSong.title }}</h2>
+            <h3>{{ playingSong.artist }}</h3>
+        </div>
         <div id="controls_bar">
-            <div id="btn_back" class="button">
+            <div id="btn_back" class="button" @click="changeSong(-1)">
                 <svg width="24px" height="24px" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
                     <path
@@ -15,7 +21,7 @@
                         stroke-linejoin="round"></path>
                 </svg>
             </div>
-            <div id="btn_play" class="button">
+            <div id="btn_play" class="button" @click="changeSong(0)">
                 <svg width="24px" height="24px" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
                     <path
@@ -24,7 +30,7 @@
                         stroke-linejoin="round"></path>
                 </svg>
             </div>
-            <div id="btn_next" class="button">
+            <div id="btn_next" class="button" @click="changeSong(1)">
                 <svg width="24px" height="24px" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" stroke-width="1.5">
                     <path
@@ -43,6 +49,27 @@
 <script>
 export default {
     name: 'NowPlaying',
+    data() {
+        return {
+            playingSong: {
+                title: `unknown song`,
+                artist: `unknown artist`,
+                song_id: 0,
+                image_url: "logo.png"
+            },
+        }
+    },
+    methods: {
+        playSong: function (song) {
+            this.playingSong = song
+        },
+        changeSong: function(change) {
+            this.$root.$emit(`changeSong`, change);
+        }
+    },
+    mounted() {
+        this.$root.$on('choosePlaying', this.playSong)
+    },
 }
 </script>
 <style scoped>
