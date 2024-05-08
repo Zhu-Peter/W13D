@@ -39,7 +39,7 @@ export default {
             this.highlightBackground(index);
         },
         changePlaying: function(change){
-            if(this.songs.length > 1){
+            if(this.songs.length > 0){
                 // console.log('changed song by', change, 'the current index will be', this.currentSong + change, 'there are _ songs in the list', this.songs.length)
                 if(this.currentSong + change > -1 && this.currentSong + change <= (this.songs.length - 1)){
                     this.currentSong = this.currentSong + change;
